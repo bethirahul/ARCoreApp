@@ -14,6 +14,7 @@ import com.google.ar.core.Anchor
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.Node
 import com.google.ar.sceneform.collision.Box
+import com.google.ar.sceneform.math.Quaternion
 import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.ViewRenderable
@@ -42,6 +43,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var selectedModel: Model
 
+    val viewNodes = mutableListOf<Node>()
+
+    private lateinit var photoSaver: PhotoSaver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,6 +54,19 @@ class MainActivity : AppCompatActivity() {
         setupBottomSheet()
         setupRecyclerView()
         setupDoubleTapArPlaneListener()
+        setupFab()
+
+        photoSaver = PhotoSaver(this)
+
+        getCurrentScene().addOnUpdateListener {
+            rotateViewNodesTowardsUser()
+        }
+    }
+
+    private fun setupFab() {
+        fab.setOnClickListener {
+            photoSaver.takePhoto(arFragment.arSceneView)
+        }
     }
 
     private fun setupDoubleTapArPlaneListener() {
@@ -101,10 +119,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun rotateViewNodesTowardsUser() {
+        for(node in viewNodes) {
+            node.renderable?.let {
+                val camPos = getCurrentScene().camera.worldPosition
+                val viewNodePos = node.worldPosition
+                val dir = Vector3.subtract(camPos, viewNodePos)
+                node.worldRotation = Quaternion.lookRotation(dir, Vector3.up())
+            }
+        }
+    }
+
     private fun addNodeToScene(anchor: Anchor, modelRenderable: ModelRenderable, viewRenderable: ViewRenderable) {
         val anchorNode = AnchorNode(anchor)
         val modelNode = TransformableNode(arFragment.transformationSystem).apply {
             renderable = modelRenderable
+            localScale = Vector3(0.5f, 0.5f, 0.5f)
             setParent(anchorNode)
             getCurrentScene().addChild(anchorNode)
             select()
@@ -116,8 +146,10 @@ class MainActivity : AppCompatActivity() {
             localPosition = Vector3(0f, box.size.y, 0f)
             (viewRenderable.view as Button).setOnClickListener {
                 getCurrentScene().removeChild(anchorNode)
+                viewNodes.remove(this)
             }
         }
+        viewNodes.add(viewNode)
         modelNode.setOnTapListener { _, _ ->
             if(!modelNode.isTransforming) {
                 if(viewNode.renderable == null) {
