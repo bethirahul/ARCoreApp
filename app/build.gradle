@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.ar.sceneform.plugin'
 
 android {
     compileSdkVersion 29
@@ -23,6 +24,10 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -37,5 +42,7 @@ dependencies {
 
     implementation 'com.google.ar:core:1.16.0'
 
-    implementation 'com.google.ar.sceneform.ux:'
+    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.15.0'
+    implementation 'com.google.ar.sceneform:core:1.15.0'
+    implementation 'com.google.ar.sceneform:animation:1.15.0'
 }
