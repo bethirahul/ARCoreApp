@@ -3,6 +3,55 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.ar.sceneform.plugin'
 
+sceneform.asset(
+        'sampledata/3D_Models/Desk lamp.obj',
+        'default',
+        'sampledata/3D_Models/Desk lamp.sfa',
+        'src/main/res/raw/lamp'
+)
+sceneform.asset(
+        'sampledata/3D_Models/CHAHIN_WOODEN_CHAIR.obj',
+        'default',
+        'sampledata/3D_Models/CHAHIN_WOODEN_CHAIR.sfa',
+        'src/main/res/raw/chair'
+)
+sceneform.asset(
+        'sampledata/3D_Models/Desk.obj',
+        'default',
+        'sampledata/3D_Models/Desk.sfa',
+        'src/main/res/raw/desk'
+)
+sceneform.asset(
+        'sampledata/3D_Models/Garbage_Bin.obj',
+        'default',
+        'sampledata/3D_Models/Garbage_Bin.sfa',
+        'src/main/res/raw/garbagebin'
+)
+sceneform.asset(
+        'sampledata/3D_Models/Houseplant.obj',
+        'default',
+        'sampledata/3D_Models/Houseplant.sfa',
+        'src/main/res/raw/houseplant'
+)
+sceneform.asset(
+        'sampledata/3D_Models/Laptop.obj',
+        'default',
+        'sampledata/3D_Models/Laptop.sfa',
+        'src/main/res/raw/laptop'
+)
+sceneform.asset(
+        'sampledata/3D_Models/Printer.obj',
+        'default',
+        'sampledata/3D_Models/Printer.sfa',
+        'src/main/res/raw/printer'
+)
+sceneform.asset(
+        'sampledata/3D_Models/WallDeskSpeakers.obj',
+        'default',
+        'sampledata/3D_Models/WallDeskSpeakers.sfa',
+        'src/main/res/raw/speaker'
+)
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"

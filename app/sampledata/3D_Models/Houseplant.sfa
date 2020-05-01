@@ -1,0 +1,50 @@
+{
+  materials: [
+    {
+      name: 'Houseplant_mat1',
+      parameters: [
+        {
+          baseColor: 'Houseplant_BaseColor',
+        },
+        {
+          baseColorTint: [
+            0.5,
+            0.5,
+            0.5,
+            1,
+          ],
+        },
+        {
+          metallic: 0,
+        },
+        {
+          roughness: 1,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/3D_Models/Houseplant.obj',
+    name: 'Houseplant',
+    recenter: 'root',
+    scale: 0.230654,
+  },
+  samplers: [
+    {
+      file: 'sampledata/3D_Models\\Houseplant_BaseColor.png',
+      name: 'Houseplant_BaseColor',
+      pipeline_name: 'Houseplant_BaseColor.png',
+    },
+  ],
+  version: '0.54:2',
+}
