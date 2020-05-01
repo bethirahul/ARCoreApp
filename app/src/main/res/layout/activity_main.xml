@@ -13,8 +13,8 @@
         <fragment
             android:id="@+id/fragment"
             android:name="com.google.ar.sceneform.ux.ArFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -36,6 +36,30 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    
+    <LinearLayout
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/colorLightGreen"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <TextView
+            android:id="@+id/tvModel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorLightGreen"
+            android:textColor="@color/colorDarkGreen"
+            android:text="AR objects"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="20sp" />
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvModels"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
