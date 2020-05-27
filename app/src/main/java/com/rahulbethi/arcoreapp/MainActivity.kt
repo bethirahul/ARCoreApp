@@ -1,12 +1,12 @@
 package com.rahulbethi.arcoreapp
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -29,6 +29,8 @@ private const val DOUBLE_TAP_MAX_DURATION = 1000L // 1 sec
 class MainActivity : AppCompatActivity() {
 
     lateinit var arFragment: ArFragment
+
+    var count = 0
 
     private val models = mutableListOf(
         Model(R.drawable.chair,      "Chair",   R.raw.chair     ),
@@ -135,6 +137,8 @@ class MainActivity : AppCompatActivity() {
         val modelNode = TransformableNode(arFragment.transformationSystem).apply {
             renderable = modelRenderable
             localScale = Vector3(0.5f, 0.5f, 0.5f)
+            name = count.toString()
+            count += 1
             setParent(anchorNode)
             getCurrentScene().addChild(anchorNode)
             select()
@@ -150,10 +154,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
         viewNodes.add(viewNode)
-        modelNode.setOnTapListener { _, _ ->
+        modelNode.setOnTapListener { hitTestResult, _ ->
             if(!modelNode.isTransforming) {
                 if(viewNode.renderable == null) {
                     viewNode.renderable = viewRenderable
+                    val name = hitTestResult.node?.name
+                    val message = "Opened $name Remove button"
+                    Toast.makeText(
+                        this, message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     viewNode.renderable = null
                 }
